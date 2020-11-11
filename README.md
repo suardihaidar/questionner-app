@@ -13,7 +13,7 @@
   - `components` : application components.
   - `services` : application services, e.g. API clients
   - `utils` : utilities.
-  - `views` : should be a component folder with PascalCase convention, let say you want to create `Create Merchant screen` so its folder should like `CreateMerchant` with `index.js` and `style.js` inside it. the last but not least, for state manajement you store inside the screen folder you just created.
+  - `views` : should be a component folder with PascalCase convention, let say you want to create `Additional Question screen` so its folder should like `AdditionalQuestion` with `index.js` and `style.js` inside it. the last but not least, for state manajement you store inside the screen folder you just created.
 
 ### How to contribute
 
