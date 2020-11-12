@@ -1,7 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Welcome from './Welcome';
+import Home from './Home';
+import Info from './Info';
+import Result from './Result';
+
+import SharedHeader from '../components/SharedHeader';
 
 /**
  * Stack Navigator
@@ -10,9 +14,22 @@ import Welcome from './Welcome';
 const Stack = createStackNavigator();
 const stackScreens = [
   {
-    name: 'welcome',
-    component: Welcome,
+    name: 'home',
+    component: Home,
     options: {headerShown: false, gestureEnabled: false},
+  },
+  {
+    name: 'info',
+    component: Info,
+    options: {
+      gestureEnabled: false,
+      header: () => <SharedHeader title="Info" />,
+    },
+  },
+  {
+    name: 'result',
+    component: Result,
+    options: {gestureEnabled: false, headerShown: false},
   },
 ];
 
