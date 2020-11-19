@@ -3,6 +3,7 @@ import info from './images/info.png';
 import qa from './images/qa.png';
 import result from './images/result.png';
 import back from './images/back.png';
+import checked from './images/checked.png';
 
 // Color asset
 export const Color = {
@@ -34,4 +35,5 @@ export const Assets = {
   qa,
   result,
   back,
+  checked,
 };

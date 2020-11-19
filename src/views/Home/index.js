@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Alert,
+  // Alert,
 } from 'react-native';
 
 import {Assets} from '@/assets';
@@ -15,7 +15,8 @@ const Home = ({navigation}) => {
     navigation.navigate('info');
   };
   const goToQuest = () => {
-    Alert.alert('', 'Lembar Observasi');
+    navigation.navigate('observation');
+    // Alert.alert('', 'Lembar Observasi');
   };
   const goToResult = () => {
     navigation.navigate('result');
