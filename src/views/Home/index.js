@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,18 +9,29 @@ import {
 } from 'react-native';
 
 import {Assets} from '@/assets';
+// import firebase from '@/services/Firebase';
 
 const Home = ({navigation}) => {
   const goToInfo = () => {
     navigation.navigate('info');
   };
-  const goToQuest = () => {
-    navigation.navigate('observation');
+  const goToGuide = () => {
+    navigation.navigate('guide');
     // Alert.alert('', 'Lembar Observasi');
   };
   const goToResult = () => {
     navigation.navigate('result');
   };
+
+  useEffect(() => {
+    // firebase
+    //   .database()
+    //   .ref('MainQuest')
+    //   .on('value', (snapshot) => {
+    //     const databaseObservasi = snapshot.val();
+    //     console.log('cek data base', databaseObservasi);
+    //   });
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -30,7 +41,14 @@ const Home = ({navigation}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{width: 350, textAlign: 'center'}}>
+        <Text
+          style={{
+            width: 350,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: '#333333',
+            fontSize: 16,
+          }}>
           INSTRUMEN PENILAIAN PROTOKOL KESEHATAN ADAPTASI KEBIASAAN BARU DI
           RUMAH MAKAN/RESTORAN, JASA BOGA, SENTRA PANGAN JAJANAN DAN SEJENISNYA
         </Text>
@@ -47,15 +65,21 @@ const Home = ({navigation}) => {
             style={{alignItems: 'center', flex: 1}}
             onPress={() => goToInfo()}>
             <Image source={Assets.info} style={{width: 77, height: 77}} />
-            <Text>Info</Text>
+            <Text style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.5)'}}>
+              Info
+            </Text>
           </TouchableOpacity>
           {/* lembar observasi */}
           <TouchableOpacity
             style={{alignItems: 'center', flex: 1}}
-            onPress={() => goToQuest()}>
+            onPress={() => goToGuide()}>
             <Image source={Assets.qa} style={{width: 77, height: 77}} />
-            <Text>Lembar</Text>
-            <Text>Observasi</Text>
+            <Text style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.5)'}}>
+              Lembar
+            </Text>
+            <Text style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.5)'}}>
+              Observasi
+            </Text>
           </TouchableOpacity>
         </View>
         {/* Hasil */}
@@ -63,7 +87,9 @@ const Home = ({navigation}) => {
           style={{alignItems: 'center'}}
           onPress={() => goToResult()}>
           <Image source={Assets.result} style={{width: 77, height: 77}} />
-          <Text>Hasil</Text>
+          <Text style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.5)'}}>
+            Hasil
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
