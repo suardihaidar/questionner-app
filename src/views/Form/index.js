@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   Text,
   TouchableOpacity,
   TextInput,
   View,
+  Keyboard,
 } from 'react-native';
 
 const Form = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+
   return (
     <SafeAreaView style={{flex: 1, alignItems: 'center'}}>
       <View style={{marginTop: 35, flex: 1}}>
@@ -22,6 +26,9 @@ const Form = ({navigation}) => {
             backgroundColor: '#dbf6e9',
             paddingHorizontal: 15,
           }}
+          onChangeText={(val) => setName(val)}
+          value={name}
+          autoFocus
         />
         <Text style={{marginVertical: 10, fontSize: 14, alignSelf: 'baseline'}}>
           Alamat :
@@ -34,6 +41,8 @@ const Form = ({navigation}) => {
             backgroundColor: '#dbf6e9',
             paddingHorizontal: 15,
           }}
+          onChangeText={(val) => setAddress(val)}
+          value={address}
         />
       </View>
       <TouchableOpacity
@@ -43,12 +52,15 @@ const Form = ({navigation}) => {
           borderRadius: 25,
           padding: 10,
           width: 150,
-          height: 40,
+          height: 50,
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onPress={() => navigation.navigate('mainQuest')}>
-        <Text style={{color: 'white'}}>Selanjutnya</Text>
+        onPress={() => {
+          navigation.navigate('mainQuest');
+          Keyboard.dismiss();
+        }}>
+        <Text style={{color: 'white', fontWeight: 'bold'}}>Selanjutnya</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
