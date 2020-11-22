@@ -4,11 +4,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from './Home';
 import Info from './Info';
 import Result from './Result';
-import Observation from './Observation';
+import Guide from './Guide';
 
 import Form from './Form';
 import MainQuest from './MainQuest';
-import AdditionalQuest from './AdditionalQuest';
 import Done from './Done';
 
 import SharedHeader from '../components/SharedHeader';
@@ -38,8 +37,8 @@ const stackScreens = [
     options: {gestureEnabled: false, headerShown: false},
   },
   {
-    name: 'observation',
-    component: Observation,
+    name: 'guide',
+    component: Guide,
     options: {
       gestureEnabled: false,
       header: () => <SharedHeader title="Lembar Observasi" />,
@@ -56,14 +55,6 @@ const stackScreens = [
   {
     name: 'mainQuest',
     component: MainQuest,
-    options: {
-      gestureEnabled: false,
-      header: () => <SharedHeader title="Lembar Observasi" />,
-    },
-  },
-  {
-    name: 'additionalQuest',
-    component: AdditionalQuest,
     options: {
       gestureEnabled: false,
       header: () => <SharedHeader title="Lembar Observasi" />,
