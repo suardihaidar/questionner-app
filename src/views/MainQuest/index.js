@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -9,6 +9,7 @@ import {
 
 // import firebase from '@/services/Firebase';
 import {mainQuest, additionalQuest} from '@/utils/dataQuestion';
+import {GlobalContext} from '../../context/globalState';
 
 const MainQuest = ({navigation}) => {
   const [currentQuest, setCurrentQuest] = useState(0);
@@ -18,21 +19,49 @@ const MainQuest = ({navigation}) => {
   const [isQuestDone, setIsQuestDone] = useState(false);
   // const dataRef = firebase.database().ref('data');
   // const newDataKey = firebase.database().ref().child('data').push().key;
+  const {setDataResult, name, address} = useContext(GlobalContext);
 
   const handleAnswerPress = (val) => {
+    // set point / answer
     let newArr = [...quest];
-    newArr[currentQuest].point = val;
-    setQuest(newArr);
+    if (typeof val === 'number') {
+      newArr[currentQuest].point = val;
+      setQuest(newArr);
+    } else {
+      newArr[currentQuest].answer = val;
+      setQuest(newArr);
+    }
 
     // next handler
     if (currentQuest + 1 !== quest.length) {
       setCurrentQuest(currentQuest + 1);
     } else if (currentQuest + 1 === quest.length && isQuestDone) {
+      // set total point
       const totalPoint = dataMainQuest.reduce(function (total, arr) {
         // return the sum with previous value
         return total + arr.point;
         // set initial value as 0
       }, 0);
+
+      // set category
+      let category;
+      if (totalPoint === 18) {
+        category = 'Tidak Beresiko';
+      } else if (totalPoint > 0 && totalPoint < 18) {
+        category = 'Beresiko';
+      } else {
+        category = 'Sangat beresiko';
+      }
+
+      // set data
+      setDataResult({
+        questions: {main: dataMainQuest, additional: quest},
+        name: name,
+        address: address,
+        totalPoint: totalPoint,
+        category: category,
+      });
+
       navigation.navigate('done', {totalPoint});
       // console.log('cek data', totalPoint);
     } else {
@@ -74,14 +103,14 @@ const MainQuest = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={styles.yesBtn}
-          onPress={() => handleAnswerPress(1)}>
+          onPress={() => handleAnswerPress(!isQuestDone ? 1 : 'yes')}>
           <Text style={{color: '#547F2D', fontWeight: 'bold', fontSize: 25}}>
             Ya
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.noBtn}
-          onPress={() => handleAnswerPress(0)}>
+          onPress={() => handleAnswerPress(!isQuestDone ? 0 : 'no')}>
           <Text style={{color: '#FCFAFD', fontWeight: 'bold', fontSize: 25}}>
             Tidak
           </Text>
