@@ -5,6 +5,7 @@ import Home from './Home';
 import Info from './Info';
 import Result from './Result';
 import Guide from './Guide';
+import ResultDetail from './ResultDetail';
 
 import Form from './Form';
 import MainQuest from './MainQuest';
@@ -34,7 +35,10 @@ const stackScreens = [
   {
     name: 'result',
     component: Result,
-    options: {gestureEnabled: false, headerShown: false},
+    options: {
+      gestureEnabled: false,
+      header: () => <SharedHeader title="Hasil" />,
+    },
   },
   {
     name: 'guide',
@@ -64,6 +68,14 @@ const stackScreens = [
     name: 'done',
     component: Done,
     options: {gestureEnabled: false, headerShown: false},
+  },
+  {
+    name: 'resultDetail',
+    component: ResultDetail,
+    options: {
+      gestureEnabled: false,
+      header: () => <SharedHeader title="Detail" />,
+    },
   },
 ];
 
