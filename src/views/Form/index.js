@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,11 +6,26 @@ import {
   TextInput,
   View,
   Keyboard,
+  Alert,
 } from 'react-native';
 
+import {GlobalContext} from '../../context/globalState';
+
 const Form = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+  const {setName, setAddress} = useContext(GlobalContext);
+  const [valName, setValName] = useState('');
+  const [valAddress, setValAddress] = useState('');
+
+  const handleNext = () => {
+    if (valName && valAddress) {
+      setName(valName);
+      setAddress(valAddress);
+      navigation.navigate('mainQuest');
+      Keyboard.dismiss();
+    } else {
+      Alert.alert('', 'Nama dan Alamat harus diisi!');
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1, alignItems: 'center'}}>
@@ -26,8 +41,7 @@ const Form = ({navigation}) => {
             backgroundColor: '#dbf6e9',
             paddingHorizontal: 15,
           }}
-          onChangeText={(val) => setName(val)}
-          value={name}
+          onChangeText={(val) => setValName(val)}
           autoFocus
         />
         <Text style={{marginVertical: 10, fontSize: 14, alignSelf: 'baseline'}}>
@@ -41,8 +55,7 @@ const Form = ({navigation}) => {
             backgroundColor: '#dbf6e9',
             paddingHorizontal: 15,
           }}
-          onChangeText={(val) => setAddress(val)}
-          value={address}
+          onChangeText={(val) => setValAddress(val)}
         />
       </View>
       <TouchableOpacity
@@ -56,10 +69,7 @@ const Form = ({navigation}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onPress={() => {
-          navigation.navigate('mainQuest');
-          Keyboard.dismiss();
-        }}>
+        onPress={handleNext}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>Selanjutnya</Text>
       </TouchableOpacity>
     </SafeAreaView>
