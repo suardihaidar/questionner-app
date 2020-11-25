@@ -19,14 +19,20 @@ const SharedHeader = ({title, button}) => {
         />
       </TouchableOpacity>
       <Text style={styles.textTitle}>{title}</Text>
-      {!button ? (
-        <Image
-          source={Assets.logoFulfill}
-          resizeMode="contain"
-          style={{width: 30, height: 30, alignSelf: 'center'}}
-        />
-      ) : (
-        <View style={{flex: 1}}>{button}</View>
+      {button && (
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#31326f',
+            borderRadius: 25,
+            padding: 10,
+            width: 100,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => {}}>
+          <Text style={{color: 'white', fontWeight: 'bold'}}>Download</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
