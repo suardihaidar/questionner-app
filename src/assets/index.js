@@ -7,6 +7,13 @@ import checked from './images/checked.png';
 import danger from './images/danger.png';
 import warn from './images/warn.png';
 
+// info image
+import A from './images/A.png';
+import B from './images/B.png';
+import C from './images/C.png';
+import D from './images/D.png';
+import E from './images/E.png';
+
 // Color asset
 export const Color = {
   black: '#000000',
@@ -40,4 +47,11 @@ export const Assets = {
   checked,
   danger,
   warn,
+
+  // info image
+  A,
+  B,
+  C,
+  D,
+  E,
 };
