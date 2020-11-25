@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import RNBootSplash from 'react-native-bootsplash';
 
 import RootView from '@/views';
+import {GlobalProvider} from './src/context/globalState';
 
 const App = () => {
   useEffect(() => {
@@ -11,9 +12,11 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <RootView />
-    </NavigationContainer>
+    <GlobalProvider>
+      <NavigationContainer>
+        <RootView />
+      </NavigationContainer>
+    </GlobalProvider>
   );
 };
 
