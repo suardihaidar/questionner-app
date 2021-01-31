@@ -5,21 +5,21 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 
-// import firebase from '@/services/Firebase';
-import {mainQuest, additionalQuest} from '@/utils/dataQuestion';
+import firebase from '@/services/Firebase';
 import {GlobalContext} from '../../context/globalState';
 
 const MainQuest = ({navigation}) => {
   const [currentQuest, setCurrentQuest] = useState(0);
   const [quest, setQuest] = useState([]);
   const [dataMainQuest, setDataMainQuest] = useState([]);
-  // const [dataAdditionalQuest, setDataAdditionalMainQuest] = useState([]);
+  const [additionalQuest, setAdditionalQuest] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isQuestDone, setIsQuestDone] = useState(false);
-  // const dataRef = firebase.database().ref('data');
-  // const newDataKey = firebase.database().ref().child('data').push().key;
-  const {setDataResult, name, address} = useContext(GlobalContext);
+
+  const {name, address} = useContext(GlobalContext);
 
   const handleAnswerPress = (val) => {
     // set point / answer
@@ -53,29 +53,18 @@ const MainQuest = ({navigation}) => {
         category = 'Sangat beresiko';
       }
 
-      // set data
-      setDataResult({
+      // save to db
+      const res = {
         questions: {main: dataMainQuest, additional: quest},
         name: name,
         address: address,
         totalPoint: totalPoint,
         category: category,
-      });
+      };
+      firebase.database().ref('Result').push().set(res);
 
       navigation.navigate('done', {totalPoint});
-      // console.log('cek data', totalPoint);
     } else {
-      // firebase
-      // .database()
-      // .ref('MainQuest')
-      // .set('value', (snapshot) => {
-      //   const databaseObservasi = snapshot.val();
-      //   console.log('cek data base', databaseObservasi);
-      // });
-
-      // !isQuestDone
-      //   ? setDataMainQuest(quest)
-      //   : setDataAdditionalMainQuest(quest);
       setDataMainQuest(quest);
       setCurrentQuest(0);
       setQuest(additionalQuest);
@@ -84,12 +73,28 @@ const MainQuest = ({navigation}) => {
   };
 
   useEffect(() => {
-    setQuest(mainQuest);
+    setIsLoading(true);
+    // set main quest
+    firebase
+      .database()
+      .ref('MainQuest')
+      .once('value')
+      .then((snapshot) => {
+        setQuest(snapshot.val());
+        setIsLoading(false);
+      });
+    // set additional quest
+    firebase
+      .database()
+      .ref('AdditionalQuest')
+      .once('value')
+      .then((snapshot) => {
+        setAdditionalQuest(snapshot.val());
+      });
   }, []);
 
   return (
     <SafeAreaView style={{flex: 1, alignItems: 'center'}}>
-      {/* {console.log('cek quest', quest)} */}
       <View style={{alignItems: 'center', flex: 1}}>
         <Text style={styles.txtTitle}>
           {!isQuestDone
@@ -97,9 +102,13 @@ const MainQuest = ({navigation}) => {
             : 'Informasi Pendukung'}
         </Text>
         <View style={{flex: 1, justifyContent: 'center'}}>
-          <Text style={styles.txtQuest}>
-            {quest.length && quest[currentQuest].question}
-          </Text>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <Text style={styles.txtQuest}>
+              {quest.length > 1 && quest[currentQuest].question}
+            </Text>
+          )}
         </View>
         <TouchableOpacity
           style={styles.yesBtn}
