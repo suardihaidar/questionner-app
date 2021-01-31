@@ -6,6 +6,7 @@ import back from './images/back.png';
 import checked from './images/checked.png';
 import danger from './images/danger.png';
 import warn from './images/warn.png';
+import xbtn from './images/x-button.png';
 
 // info image
 import A from './images/A.png';
@@ -47,6 +48,7 @@ export const Assets = {
   checked,
   danger,
   warn,
+  xbtn,
 
   // info image
   A,
